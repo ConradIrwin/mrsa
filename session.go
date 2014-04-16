@@ -13,16 +13,16 @@ import (
 // fully sign a message using PKCS1.
 type Session struct {
 	PublicKey
-	decryptors []PartialDecryptor
+	Decryptors []PartialDecryptor
 }
 
 // decrypt performs a full RSA decryption using multiple PartialDecryptors
 func (session *Session) decrypt(c *big.Int) (* big.Int, error) {
 
 	var err error
-	ms := make([]*big.Int, len(session.decryptors))
+	ms := make([]*big.Int, len(session.Decryptors))
 
-	for i, d := range(session.decryptors) {
+	for i, d := range(session.Decryptors) {
 		ms[i], err = d.PartialDecrypt(c)
 		if err != nil {
 			return nil, err
